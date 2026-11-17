@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <section class="container section">
+    <div class="panel form-panel wide-panel">
+      <h3>Edit Project</h3>
+      <form method="POST" action="{{ url_for('main.edit_project', project_id=project.id) }}">
+        <label>
+          Title
+          <input type="text" name="title" value="{{ project.title }}" required />
+        </label>
+
+        <label>
+          Description
+          <textarea name="description" rows="4" required>{{ project.description }}</textarea>
+        </label>
+
+        <label>
+          Technologies
+          <input type="text" name="technologies" value="{{ project.technologies }}" />
+        </label>
+
+        <label>
+          Project URL
+          <input type="url" name="url" value="{{ project.url or '' }}" />
+        </label>
+
+        <div class="form-actions">
+          <button type="submit" class="button primary">Update Project</button>
+          <a href="{{ url_for('main.index') }}" class="button secondary">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </section>
+{% endblock %}

@@ -1,2 +1,3 @@
-# orm-portfolio-crud
-A Flask portfolio webpage with persistent project management using SQLAlchemy ORM CRUD operations and SQLite.
+Flask==3.0.3
+Flask-SQLAlchemy==3.1.1
+SQLAlchemy==2.0.34

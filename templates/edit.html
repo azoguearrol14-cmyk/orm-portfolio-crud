@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="hero" id="about">
+  <div class="container hero-grid">
+    <div>
+      <p class="eyebrow">Full-Stack Developer</p>
+      <h1>Building useful products with clean, reliable code.</h1>
+      <p class="lead">
+        I design and build modern web experiences, turning ideas into polished and scalable solutions.
+      </p>
+      <div class="cta-row">
+        <a class="button primary" href="#projects">View Projects</a>
+        <a class="button secondary" href="#contact">Contact Me</a>
+      </div>
+    </div>
+
+    <div class="profile-card">
+      <div class="avatar">AM</div>
+      <h2>Alex Morgan</h2>
+      <ul>
+        <li>Python &amp; Flask</li>
+        <li>SQLAlchemy ORM</li>
+        <li>Database-driven apps</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="stats-section">
+  <div class="container stats-grid">
+    <div class="stat-box">
+      <strong>{{ projects|length }}</strong>
+      <span>Portfolio Items</span>
+    </div>
+    <div class="stat-box">
+      <strong>3+</strong>
+      <span>Years Experience</span>
+    </div>
+    <div class="stat-box">
+      <strong>12</strong>
+      <span>Projects Delivered</span>
+    </div>
+  </div>
+</section>
+
+<section class="container section" id="projects">
+  <div class="section-heading">
+    <p class="eyebrow">ORM Demo</p>
+    <h2>Project Portfolio</h2>
+  </div>
+
+  <div class="panel-grid">
+    <div class="panel form-panel">
+      <h3>Add a new project</h3>
+      <form method="POST" action="{{ url_for('main.create_project') }}">
+        <label>
+          Title
+          <input type="text" name="title" placeholder="Project title" required />
+        </label>
+
+        <label>
+          Description
+          <textarea name="description" rows="4" placeholder="Short project summary" required></textarea>
+        </label>
+
+        <label>
+          Technologies
+          <input type="text" name="technologies" placeholder="Flask, SQLAlchemy, SQLite" />
+        </label>
+
+        <label>
+          Project URL
+          <input type="url" name="url" placeholder="https://example.com" />
+        </label>
+
+        <button type="submit" class="button primary full-width">Save Project</button>
+      </form>
+    </div>
+
+    <div class="panel list-panel">
+      <h3>Stored Projects</h3>
+      {% if projects %}
+        {% for project in projects %}
+          <article class="project-card">
+            <div class="project-top-row">
+              <h4>{{ project.title }}</h4>
+              <div class="actions">
+                <a href="{{ url_for('main.edit_project', project_id=project.id) }}" class="small-link">Edit</a>
+                <form method="POST" action="{{ url_for('main.delete_project', project_id=project.id) }}">
+                  <button type="submit" class="delete-btn" onclick="return confirm('Delete this project?');">Delete</button>
+                </form>
+              </div>
+            </div>
+            <p>{{ project.description }}</p>
+            <div class="meta">
+              <span>{{ project.technologies }}</span>
+              {% if project.url %}
+                <a href="{{ project.url }}" target="_blank" rel="noreferrer">Visit</a>
+              {% endif %}
+            </div>
+          </article>
+        {% endfor %}
+      {% else %}
+        <p class="empty-state">No projects yet. Add your first portfolio item above.</p>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<section class="container section" id="contact">
+  <div class="section-heading">
+    <p class="eyebrow">Let’s work together</p>
+    <h2>Contact</h2>
+  </div>
+
+  <div class="contact-box">
+    <p>Email: alex.morgan.dev@example.com</p>
+    <p>GitHub: github.com/alexmorgan</p>
+    <p>Location: Remote / Worldwide</p>
+  </div>
+</section>
+{% endblock %}
